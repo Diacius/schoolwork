@@ -1,4 +1,6 @@
+from re import M
 from colorama import Fore, Back
+from pip import main
 print("Capitalism V2 Patch Notes:")
 print(" - Ended Communism")
 print(" - Fixed bug that allowed poor people to buy food")
@@ -31,9 +33,12 @@ Main Menu
     print("1. Print List")
     print("2. Add Item")
     print("3. Remove Item")
-    input("")
+    mainmenuinput = input("")
+    return mainmenuinput
 
 while True:
-    mainMenu()
+    a = int(mainMenu())
+    if a == 1:
+        fancyPrint()
 print(Fore.RESET)
 print(Back.RESET)
