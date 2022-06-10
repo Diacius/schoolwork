@@ -12,19 +12,29 @@ print(f"""{Fore.BLUE}
 -----------
 {Fore.RESET}""")
 import json
-def loadList():
-    try:
-        with open("list", "r") as fp:
-            list = json.load(fp)
-        return list
-    except:
-        print(f"{Fore.RED}Loading data FAILED. Did you run setup first?{Fore.RESET}")
+try:
+    with open("list", "r") as fp:
+        list = json.load(fp)
+    shoppingListData =  list
+except Exception as error: print(f"{Fore.RED}Loading data FAILED. Did you run setup first?{Fore.RESET} Error Code:" + str(error))
+
+def syncList():
+    with open("list", "w") as fp:
+        fp.write(json.dumps(shoppingListData))
+    print("Succesfully wrote changes")
 
 def fancyPrint():
-    shoppingListData = loadList()
     '''for item in shoppingListData:
         print(item.capitalize())'''
     print(Fore.MAGENTA + ", ".join(shoppingListData) + Fore.RESET )
+
+def addItem():
+    itemToAdd = input(Fore.BLUE + "What item?")
+    shoppingListData.append(itemToAdd)
+    print(Fore.GREEN + f"Succesfully added {itemToAdd} to the list")
+    syncList()
+def removeItem():
+    pass
 
 def mainMenu():
     print("""=========
@@ -40,5 +50,9 @@ while True:
     a = int(mainMenu())
     if a == 1:
         fancyPrint()
+    if a == 2:
+        addItem()
+    if a == 3:
+        removeItem()
 print(Fore.RESET)
 print(Back.RESET)
