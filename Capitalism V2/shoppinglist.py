@@ -34,7 +34,10 @@ def addItem():
 def removeItem():
     fancyPrint()
     itemToRemove = input(Fore.BLUE + "Remove which item?")
-    shoppingListData.remove(itemToRemove)
+    try:
+        shoppingListData.remove(itemToRemove)
+    except ValueError:
+        print("Thats not an item lol")
     print(Fore.GREEN + f"Succesfully removed {itemToRemove} from the list {Fore.RESET}")
     syncList()
 
@@ -54,12 +57,17 @@ Main Menu
     return mainmenuinput
 
 while True:
-    a = int(mainMenu())
+    try:
+        a = int(mainMenu())
+    except ValueError:
+        print('enter a number')
     if a == 1:
         fancyPrint()
     if a == 2:
         addItem()
     if a == 3:
         removeItem()
+    if a == 4:
+        clearList()
 print(Fore.RESET)
 print(Back.RESET)
